@@ -37,11 +37,11 @@ Topology diagram coming as part of the early commits.
 
 ## Build progress
 
-* [✅] Task 1 Host setup
-* [✅] Task 2 Virtual networking
-* [✅] Task 3 Pivot to containerlab + Arista cEOS
-* [✅] Task 4 Docker, containerlab, cEOS image
-* [✅] Task 5 Multi-switch topology deployed
+* [] Task 1 Host setup
+* [] Task 2 Virtual networking
+* [] Task 3 Pivot to containerlab + Arista cEOS
+* [] Task 4 Docker, containerlab, cEOS image
+* [] Task 5 Multi-switch topology deployed
 * [ ] Task 6 eBGP underlay
 * [ ] Task 7 EVPN VXLAN overlay
 * [ ] Task 8 RoCEv2 QoS
