@@ -33,7 +33,7 @@ This repo is me bridging that 30% gap publicly.
 * 4 simulated GPU servers (one per rail)
 * All on a single workstation
 
-Topology diagram coming as part of the early commits.
+![AI fabric topology](docs/images/topology.svg)
 
 ## Build progress
 
