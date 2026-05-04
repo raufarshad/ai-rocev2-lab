@@ -42,15 +42,15 @@ Topology diagram coming as part of the early commits.
 * [] Task 3 Pivot to containerlab + Arista cEOS
 * [] Task 4 Docker, containerlab, cEOS image
 * [] Task 5 Multi-switch topology deployed
-* [ ] Task 6 eBGP underlay
-* [ ] Task 7 EVPN VXLAN overlay
-* [ ] Task 8 RoCEv2 QoS
-* [ ] Task 9 DLB and ECMP enhancements
-* [ ] Task 10 Ansible automation
-* [ ] Task 11 pyATS validation
-* [ ] Task 12 Telemetry
-* [ ] Task 13 Documentation polish
-* [ ] Task 14 Public release
+* [] Task 6 eBGP underlay
+* [] Task 7 EVPN VXLAN overlay
+* [] Task 8 RoCEv2 QoS
+* [] Task 9 DLB and ECMP enhancements
+* [] Task 10 Ansible automation
+* [] Task 11 pyATS validation
+* [] Task 12 Telemetry
+* [] Task 13 Documentation polish
+* [] Task 14 Public release
 
 ## References
 
