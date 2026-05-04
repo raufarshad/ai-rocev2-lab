@@ -1,0 +1,99 @@
+<svg width="100%" viewBox="0 0 680 620" role="img" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<title>AI fabric topology — rail-optimized with multi-homed GPU servers</title>
+<desc>Spine-leaf Clos topology for AI/ML workloads. Two spines in AS 65000 each connect to four leaves with unique private ASNs. Each GPU server has 4 NICs, one per rail, with NIC N attaching to Leaf N. Peer GPUs across servers stay on a single rail.</desc>
+<style>
+.t { font-size: 14px; font-weight: 500; }
+.ts { font-size: 12px; font-weight: 400; }
+.title { font-size: 16px; font-weight: 500; }
+.spine-fill { fill: #EEEDFE; stroke: #534AB7; }
+.spine-text-title { fill: #3C3489; }
+.spine-text-sub { fill: #534AB7; }
+.leaf-fill { fill: #E1F5EE; stroke: #0F6E56; }
+.leaf-text-title { fill: #085041; }
+.leaf-text-sub { fill: #0F6E56; }
+.gpu-fill { fill: #FAEEDA; stroke: #854F0B; }
+.gpu-text-title { fill: #633806; }
+.gpu-text-sub { fill: #854F0B; }
+.note { fill: #5F5E5A; }
+.title-text { fill: #2C2C2A; }
+.spine-link { stroke: #534AB7; }
+.rail-link { stroke: #0F6E56; }
+@media (prefers-color-scheme: dark) {
+  .spine-fill { fill: #3C3489; stroke: #CECBF6; }
+  .spine-text-title { fill: #EEEDFE; }
+  .spine-text-sub { fill: #CECBF6; }
+  .leaf-fill { fill: #085041; stroke: #9FE1CB; }
+  .leaf-text-title { fill: #E1F5EE; }
+  .leaf-text-sub { fill: #9FE1CB; }
+  .gpu-fill { fill: #633806; stroke: #FAC775; }
+  .gpu-text-title { fill: #FAEEDA; }
+  .gpu-text-sub { fill: #FAC775; }
+  .note { fill: #B4B2A9; }
+  .title-text { fill: #F1EFE8; }
+}
+</style>
+<text class="title title-text" x="340" y="30" text-anchor="middle">AI fabric topology - rail-optimized, eBGP everywhere</text>
+<rect class="spine-fill" x="160" y="60" width="160" height="56" rx="8" stroke-width="0.5"/>
+<text class="t spine-text-title" x="240" y="80" text-anchor="middle" dominant-baseline="central">spine1</text>
+<text class="ts spine-text-sub" x="240" y="100" text-anchor="middle" dominant-baseline="central">AS 65000 - Lo0 10.0.0.11</text>
+<rect class="spine-fill" x="360" y="60" width="160" height="56" rx="8" stroke-width="0.5"/>
+<text class="t spine-text-title" x="440" y="80" text-anchor="middle" dominant-baseline="central">spine2</text>
+<text class="ts spine-text-sub" x="440" y="100" text-anchor="middle" dominant-baseline="central">AS 65000 - Lo0 10.0.0.12</text>
+<line class="spine-link" x1="180" y1="116" x2="80"  y2="220" stroke-width="0.8" opacity="0.55"/>
+<line class="spine-link" x1="220" y1="116" x2="240" y2="220" stroke-width="0.8" opacity="0.55"/>
+<line class="spine-link" x1="260" y1="116" x2="400" y2="220" stroke-width="0.8" opacity="0.55"/>
+<line class="spine-link" x1="300" y1="116" x2="560" y2="220" stroke-width="0.8" opacity="0.55"/>
+<line class="spine-link" x1="380" y1="116" x2="120" y2="220" stroke-width="0.8" opacity="0.55"/>
+<line class="spine-link" x1="420" y1="116" x2="280" y2="220" stroke-width="0.8" opacity="0.55"/>
+<line class="spine-link" x1="460" y1="116" x2="440" y2="220" stroke-width="0.8" opacity="0.55"/>
+<line class="spine-link" x1="500" y1="116" x2="600" y2="220" stroke-width="0.8" opacity="0.55"/>
+<rect class="leaf-fill" x="40"  y="220" width="160" height="56" rx="8" stroke-width="0.5"/>
+<text class="t leaf-text-title" x="120" y="240" text-anchor="middle" dominant-baseline="central">leaf1 - rail 1</text>
+<text class="ts leaf-text-sub" x="120" y="260" text-anchor="middle" dominant-baseline="central">AS 65021 - Lo1 10.0.0.121</text>
+<rect class="leaf-fill" x="200" y="220" width="160" height="56" rx="8" stroke-width="0.5"/>
+<text class="t leaf-text-title" x="280" y="240" text-anchor="middle" dominant-baseline="central">leaf2 - rail 2</text>
+<text class="ts leaf-text-sub" x="280" y="260" text-anchor="middle" dominant-baseline="central">AS 65022 - Lo1 10.0.0.122</text>
+<rect class="leaf-fill" x="360" y="220" width="160" height="56" rx="8" stroke-width="0.5"/>
+<text class="t leaf-text-title" x="440" y="240" text-anchor="middle" dominant-baseline="central">leaf3 - rail 3</text>
+<text class="ts leaf-text-sub" x="440" y="260" text-anchor="middle" dominant-baseline="central">AS 65023 - Lo1 10.0.0.123</text>
+<rect class="leaf-fill" x="520" y="220" width="160" height="56" rx="8" stroke-width="0.5"/>
+<text class="t leaf-text-title" x="600" y="240" text-anchor="middle" dominant-baseline="central">leaf4 - rail 4</text>
+<text class="ts leaf-text-sub" x="600" y="260" text-anchor="middle" dominant-baseline="central">AS 65024 - Lo1 10.0.0.124</text>
+<line class="rail-link" x1="120" y1="276" x2="100" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="120" y1="276" x2="260" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="120" y1="276" x2="420" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="120" y1="276" x2="580" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="280" y1="276" x2="120" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="280" y1="276" x2="280" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="280" y1="276" x2="440" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="280" y1="276" x2="600" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="440" y1="276" x2="140" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="440" y1="276" x2="300" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="440" y1="276" x2="460" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="440" y1="276" x2="620" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="600" y1="276" x2="160" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="600" y1="276" x2="320" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="600" y1="276" x2="480" y2="380" stroke-width="0.6" opacity="0.5"/>
+<line class="rail-link" x1="600" y1="276" x2="640" y2="380" stroke-width="0.6" opacity="0.5"/>
+<rect class="gpu-fill" x="40"  y="380" width="160" height="64" rx="8" stroke-width="0.5"/>
+<text class="t gpu-text-title" x="120" y="400" text-anchor="middle" dominant-baseline="central">gpu-srv1</text>
+<text class="ts gpu-text-sub" x="120" y="418" text-anchor="middle" dominant-baseline="central">10.100.0.11</text>
+<text class="ts gpu-text-sub" x="120" y="434" text-anchor="middle" dominant-baseline="central">4 NICs - 1 per rail</text>
+<rect class="gpu-fill" x="200" y="380" width="160" height="64" rx="8" stroke-width="0.5"/>
+<text class="t gpu-text-title" x="280" y="400" text-anchor="middle" dominant-baseline="central">gpu-srv2</text>
+<text class="ts gpu-text-sub" x="280" y="418" text-anchor="middle" dominant-baseline="central">10.100.0.12</text>
+<text class="ts gpu-text-sub" x="280" y="434" text-anchor="middle" dominant-baseline="central">4 NICs - 1 per rail</text>
+<rect class="gpu-fill" x="360" y="380" width="160" height="64" rx="8" stroke-width="0.5"/>
+<text class="t gpu-text-title" x="440" y="400" text-anchor="middle" dominant-baseline="central">gpu-srv3</text>
+<text class="ts gpu-text-sub" x="440" y="418" text-anchor="middle" dominant-baseline="central">10.100.0.13</text>
+<text class="ts gpu-text-sub" x="440" y="434" text-anchor="middle" dominant-baseline="central">4 NICs - 1 per rail</text>
+<rect class="gpu-fill" x="520" y="380" width="160" height="64" rx="8" stroke-width="0.5"/>
+<text class="t gpu-text-title" x="600" y="400" text-anchor="middle" dominant-baseline="central">gpu-srv4</text>
+<text class="ts gpu-text-sub" x="600" y="418" text-anchor="middle" dominant-baseline="central">10.100.0.14</text>
+<text class="ts gpu-text-sub" x="600" y="434" text-anchor="middle" dominant-baseline="central">4 NICs - 1 per rail</text>
+<line x1="40"  y1="490" x2="640" y2="490" stroke="#B4B2A9" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text class="ts note" x="340" y="515" text-anchor="middle">Spine to leaf: 8 x eBGP /31 with BFD 250ms - ECMP across both spines</text>
+<text class="ts note" x="340" y="535" text-anchor="middle">Server to leaf: 16 links - every GPU server has 1 NIC per rail (NIC N to Leaf N)</text>
+<text class="ts note" x="340" y="555" text-anchor="middle">Loopback0 = router ID - Loopback1 = VTEP source (leaves only) - MTU 9214 fabric-wide</text>
+<text class="ts note" x="340" y="585" text-anchor="middle">Rail-optimized: peer-GPU traffic across servers traverses one leaf - no spine hop needed</text>
+</svg>
