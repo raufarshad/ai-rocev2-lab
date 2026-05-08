@@ -1,0 +1,130 @@
+> show running-config
+! Command: show running-config at line 1
+! device: leaf2 (cEOSLab, EOS-4.32.2F-38195967.4322F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$qorl71EYRPZALSmJ$fYOnKNCTwDEmP0MV1buJCse8zGFSxRplCfvlFO7cXx.p38hjUs2R7ApNnTzFYC0at1.qqEcCThW4.HUHwehsP0
+!
+management api http-commands
+   no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname leaf2
+!
+spanning-tree mode mstp
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vlan 100
+   name AI-COMPUTE
+!
+vrf instance ai-training
+!
+management api gnmi
+   transport grpc default
+!
+management api netconf
+   transport ssh default
+!
+interface Ethernet1
+   description To gpu-srv2 NIC1 (rail 1)
+   switchport access vlan 100
+   spanning-tree portfast
+!
+interface Ethernet49
+   description Fabric link to spine1 Eth2
+   mtu 9214
+   no switchport
+   ip address 10.1.1.3/31
+   bfd interval 250 min-rx 250 multiplier 3
+!
+interface Ethernet50
+   description Fabric link to spine2 Eth2
+   mtu 9214
+   no switchport
+   ip address 10.1.2.3/31
+   bfd interval 250 min-rx 250 multiplier 3
+!
+interface Loopback0
+   ip address 10.0.0.22/32
+!
+interface Loopback1
+   ip address 10.0.0.122/32
+!
+interface Management0
+   ip address 192.168.100.22/24
+!
+interface Vlan100
+   description AI compute network anycast gateway
+   mtu 9214
+   no autostate
+   vrf ai-training
+   ip address virtual 10.100.0.1/24
+!
+interface Vxlan1
+   vxlan source-interface Loopback1
+   vxlan udp-port 4789
+   vxlan vlan 100 vni 30100
+   vxlan vrf ai-training vni 50000
+!
+ip virtual-router mac-address 00:1c:73:00:00:01
+!
+ip routing
+ip routing vrf ai-training
+!
+ip route 0.0.0.0/0 192.168.100.1
+!
+router bgp 65022
+   router-id 10.0.0.22
+   no bgp default ipv4-unicast
+   distance bgp 20 200 200
+   maximum-paths 64
+   neighbor 10.1.1.2 remote-as 65000
+   neighbor 10.1.1.2 bfd
+   neighbor 10.1.1.2 description spine1
+   neighbor 10.1.1.2 timers 3 9
+   neighbor 10.1.1.2 send-community extended
+   neighbor 10.1.2.2 remote-as 65000
+   neighbor 10.1.2.2 bfd
+   neighbor 10.1.2.2 description spine2
+   neighbor 10.1.2.2 timers 3 9
+   neighbor 10.1.2.2 send-community extended
+   !
+   vlan 100
+      rd auto
+      route-target both 30100:30100
+      redistribute learned
+   !
+   address-family evpn
+      neighbor 10.1.1.2 activate
+      neighbor 10.1.2.2 activate
+   !
+   address-family ipv4
+      neighbor 10.1.1.2 activate
+      neighbor 10.1.2.2 activate
+      network 10.0.0.22/32
+      network 10.0.0.122/32
+   !
+   vrf ai-training
+      rd 10.0.0.22:50000
+      route-target import evpn 50000:50000
+      route-target export evpn 50000:50000
+      router-id 10.0.0.22
+      redistribute connected
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+end
