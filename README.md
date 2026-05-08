@@ -13,11 +13,25 @@ Built with Arista cEOS in containerlab on a single workstation. The same design 
 
 ## What this is NOT
 
-Honest scope:
+Honest scope, refined after lab experience:
 
-* This is **not** a production-ready deployment. It's a learning lab.
-* cEOS in containerlab does **not** faithfully simulate data-plane behavior for PFC, ECN, or DLB. Configuration correctness can be validated underload performance behavior cannot. Real validation requires hardware.
-* Performance numbers will not appear here. nccl-tests on real GPUs are a separate planned phase.
+**What's validated in this lab:**
+- eBGP-everywhere underlay with ECMP
+- EVPN VXLAN overlay (Type-2 MAC/IP and Type-3 IMET routes)
+- Anycast gateway with consistent virtual MAC
+- End-to-end Layer 2/3 connectivity across the fabric
+
+**What's NOT validated in cEOS-lab and requires hardware:**
+- PFC pause frame generation (silicon-dependent, commands don't exist in cEOS)
+- ECN marking with WRED thresholds (queue management is silicon)
+- Dynamic Load Balancing (DLB) flowlet behavior
+- DCQCN response on host NICs
+
+**What's planned in Phase 2:**
+- Cloud GPU validation: rent H100 instances, run nccl-tests, measure real RoCE/RDMA collective performance
+- Document threshold tuning impact under realistic AI traffic patterns
+
+The fabric design is hardware-deployable to Arista 7280R3/7388X or Cisco Nexus 9300/9500 with documented syntax equivalence.
 
 ## Why I'm building this
 
