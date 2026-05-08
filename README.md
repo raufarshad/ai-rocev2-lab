@@ -37,13 +37,13 @@ This repo is me bridging that 30% gap publicly.
 
 ## Build progress
 
-* [] Task 1 Host setup
-* [] Task 2 Virtual networking
-* [] Task 3 Pivot to containerlab + Arista cEOS
-* [] Task 4 Docker, containerlab, cEOS image
-* [] Task 5 Multi-switch topology deployed
-* [] Task 6 eBGP underlay
-* [] Task 7 EVPN VXLAN overlay
+* [x] Task 1 Host setup
+* [x] Task 2 Virtual networking
+* [x] Task 3 Pivot to containerlab + Arista cEOS
+* [x] Task 4 Docker, containerlab, cEOS image
+* [x] Task 5 Multi-switch topology deployed
+* [x] Task 6 eBGP underlay
+* [x] Task 7 EVPN VXLAN overlay
 * [] Task 8 RoCEv2 QoS
 * [] Task 9 DLB and ECMP enhancements
 * [] Task 10 Ansible automation
