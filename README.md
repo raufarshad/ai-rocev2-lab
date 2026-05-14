@@ -16,20 +16,20 @@ Built with Arista cEOS in containerlab on a single workstation. The same design 
 Honest scope, refined after lab experience:
 
 **What's validated in this lab:**
-- eBGP-everywhere underlay with ECMP
-- EVPN VXLAN overlay (Type-2 MAC/IP and Type-3 IMET routes)
-- Anycast gateway with consistent virtual MAC
-- End-to-end Layer 2/3 connectivity across the fabric
+1 eBGP-everywhere underlay with ECMP
+2 EVPN VXLAN overlay (Type-2 MAC/IP and Type-3 IMET routes)
+3 Anycast gateway with consistent virtual MAC
+4 End-to-end Layer 2/3 connectivity across the fabric
 
 **What's NOT validated in cEOS-lab and requires hardware:**
-- PFC pause frame generation (silicon-dependent, commands don't exist in cEOS)
-- ECN marking with WRED thresholds (queue management is silicon)
-- Dynamic Load Balancing (DLB) flowlet behavior
-- DCQCN response on host NICs
+1 PFC pause frame generation (silicon-dependent, commands don't exist in cEOS)
+2 ECN marking with WRED thresholds (queue management is silicon)
+3 Dynamic Load Balancing (DLB) flowlet behavior
+4 DCQCN response on host NICs
 
 **What's planned in Phase 2:**
-- Cloud GPU validation: rent H100 instances, run nccl-tests, measure real RoCE/RDMA collective performance
-- Document threshold tuning impact under realistic AI traffic patterns
+1 Cloud GPU validation: rent H100 instances, run nccl-tests, measure real RoCE/RDMA collective performance
+2 Document threshold tuning impact under realistic AI traffic patterns
 
 The fabric design is hardware-deployable to Arista 7280R3/7388X or Cisco Nexus 9300/9500 with documented syntax equivalence.
 
@@ -58,7 +58,7 @@ This repo is me bridging that 30% gap publicly.
 * [x] Task 5 Multi-switch topology deployed
 * [x] Task 6 eBGP underlay
 * [x] Task 7 EVPN VXLAN overlay
-* [] Task 8 RoCEv2 QoS
+* [x] Task 8 RoCEv2 QoS (documentation; cEOS doesn't support hardware QoS)
 * [] Task 9 DLB and ECMP enhancements
 * [] Task 10 Ansible automation
 * [] Task 11 pyATS validation
