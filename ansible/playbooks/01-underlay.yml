@@ -1,0 +1,8 @@
+cat > playbooks/01-underlay.yml <<'EOF'
+---
+- name: Apply eBGP underlay
+  hosts: fabric
+  gather_facts: no
+  roles:
+    - role: ../roles/eos_underlay
+EOF
