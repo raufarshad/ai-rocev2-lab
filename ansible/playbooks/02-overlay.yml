@@ -1,0 +1,8 @@
+cat > playbooks/02-overlay.yml <<'EOF'
+---
+- name: Apply EVPN VXLAN overlay
+  hosts: fabric
+  gather_facts: no
+  roles:
+    - role: ../roles/eos_overlay
+EOF
