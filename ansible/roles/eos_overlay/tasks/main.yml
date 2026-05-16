@@ -1,0 +1,135 @@
+mkdir -p roles/eos_overlay/tasks
+
+cat > roles/eos_overlay/tasks/main.yml <<'EOF'
+---
+# ============================================================
+# Spine-only tasks (transit, no VTEPs)
+# ============================================================
+
+- name: Add EVPN AFI to BGP (spines)
+  arista.eos.eos_config:
+    lines:
+      - "neighbor {{ item.peer_ip }} send-community extended"
+    parents: "router bgp {{ bgp_asn }}"
+    save_when: changed
+  loop: "{{ fabric_links }}"
+  when: role == 'spine'
+  tags: [overlay, evpn]
+
+- name: Activate EVPN per neighbor (spines)
+  arista.eos.eos_config:
+    lines:
+      - "neighbor {{ item.peer_ip }} activate"
+    parents:
+      - "router bgp {{ bgp_asn }}"
+      - "address-family evpn"
+    save_when: changed
+  loop: "{{ fabric_links }}"
+  when: role == 'spine'
+  tags: [overlay, evpn]
+
+# ============================================================
+# Leaf-only tasks (VTEPs, VRF, VLAN, anycast gateway)
+# ============================================================
+
+- name: Create tenant VRF
+  arista.eos.eos_config:
+    lines:
+      - "vrf instance {{ overlay_vrf }}"
+      - "ip routing vrf {{ overlay_vrf }}"
+    save_when: changed
+  when: role == 'leaf'
+  tags: [overlay, vrf]
+
+- name: Create VLAN
+  arista.eos.eos_config:
+    lines:
+      - "vlan {{ overlay_vlan }}"
+      - "name {{ overlay_vlan_name }}"
+    save_when: changed
+  when: role == 'leaf'
+  tags: [overlay, vlan]
+
+- name: Configure anycast gateway MAC
+  arista.eos.eos_config:
+    lines:
+      - "ip virtual-router mac-address {{ overlay_anycast_mac }}"
+    save_when: changed
+  when: role == 'leaf'
+  tags: [overlay, anycast]
+
+- name: Configure SVI for VLAN 100 (anycast gateway)
+  arista.eos.eos_config:
+    lines:
+      - "description {{ overlay_vlan_name }} - anycast gateway"
+      - "no autostate"
+      - "vrf {{ overlay_vrf }}"
+      - "ip address virtual {{ overlay_anycast_ip }}/24"
+      - "mtu {{ overlay_mtu }}"
+    parents: "interface Vlan{{ overlay_vlan }}"
+    save_when: changed
+  when: role == 'leaf'
+  tags: [overlay, svi]
+
+- name: Configure VXLAN VTEP
+  arista.eos.eos_config:
+    lines:
+      - "vxlan source-interface Loopback1"
+      - "vxlan udp-port 4789"
+      - "vxlan vlan {{ overlay_vlan }} vni {{ l2vni }}"
+      - "vxlan vrf {{ overlay_vrf }} vni {{ l3vni }}"
+    parents: "interface Vxlan1"
+    save_when: changed
+  when: role == 'leaf'
+  tags: [overlay, vxlan]
+
+- name: Add EVPN AFI to BGP (leaves)
+  arista.eos.eos_config:
+    lines:
+      - "neighbor {{ item.peer_ip }} send-community extended"
+    parents: "router bgp {{ bgp_asn }}"
+    save_when: changed
+  loop: "{{ fabric_links }}"
+  when: role == 'leaf'
+  tags: [overlay, evpn]
+
+- name: Activate EVPN per spine neighbor (leaves)
+  arista.eos.eos_config:
+    lines:
+      - "neighbor {{ item.peer_ip }} activate"
+    parents:
+      - "router bgp {{ bgp_asn }}"
+      - "address-family evpn"
+    save_when: changed
+  loop: "{{ fabric_links }}"
+  when: role == 'leaf'
+  tags: [overlay, evpn]
+
+- name: Configure L2 VLAN BGP binding (leaves)
+  arista.eos.eos_config:
+    lines:
+      - "rd auto"
+      - "route-target both {{ l2vni }}:{{ l2vni }}"
+      - "redistribute learned"
+    parents:
+      - "router bgp {{ bgp_asn }}"
+      - "vlan {{ overlay_vlan }}"
+    save_when: changed
+  when: role == 'leaf'
+  tags: [overlay, evpn, vlan]
+
+- name: Configure VRF BGP binding (leaves)
+  arista.eos.eos_config:
+    lines:
+      - "rd {{ loopback0_ip }}:{{ l3vni }}"
+      - "route-target import evpn {{ l3vni }}:{{ l3vni }}"
+      - "route-target export evpn {{ l3vni }}:{{ l3vni }}"
+      - "router-id {{ loopback0_ip }}"
+      - "redistribute connected"
+    parents:
+      - "router bgp {{ bgp_asn }}"
+      - "vrf {{ overlay_vrf }}"
+    save_when: changed
+  when: role == 'leaf'
+  tags: [overlay, evpn, vrf]
+EOF
