@@ -1,0 +1,99 @@
+cat > testbed.yml <<'EOF'
+---
+testbed:
+  name: ai-fabric-lab
+  credentials:
+    default:
+      username: admin
+      password: LabPass123!
+    enable:
+      password: LabPass123!
+
+devices:
+  spine1:
+    os: eos
+    type: switch
+    connections:
+      cli:
+        protocol: ssh
+        ip: 192.168.100.11
+  spine2:
+    os: eos
+    type: switch
+    connections:
+      cli:
+        protocol: ssh
+        ip: 192.168.100.12
+  leaf1:
+    os: eos
+    type: switch
+    connections:
+      cli:
+        protocol: ssh
+        ip: 192.168.100.21
+  leaf2:
+    os: eos
+    type: switch
+    connections:
+      cli:
+        protocol: ssh
+        ip: 192.168.100.22
+  leaf3:
+    os: eos
+    type: switch
+    connections:
+      cli:
+        protocol: ssh
+        ip: 192.168.100.23
+  leaf4:
+    os: eos
+    type: switch
+    connections:
+      cli:
+        protocol: ssh
+        ip: 192.168.100.24
+
+topology:
+  spine1:
+    interfaces:
+      Loopback0:
+        ipv4: 10.0.0.11/32
+        type: loopback
+  spine2:
+    interfaces:
+      Loopback0:
+        ipv4: 10.0.0.12/32
+        type: loopback
+  leaf1:
+    interfaces:
+      Loopback0:
+        ipv4: 10.0.0.21/32
+        type: loopback
+      Loopback1:
+        ipv4: 10.0.0.121/32
+        type: loopback
+  leaf2:
+    interfaces:
+      Loopback0:
+        ipv4: 10.0.0.22/32
+        type: loopback
+      Loopback1:
+        ipv4: 10.0.0.122/32
+        type: loopback
+  leaf3:
+    interfaces:
+      Loopback0:
+        ipv4: 10.0.0.23/32
+        type: loopback
+      Loopback1:
+        ipv4: 10.0.0.123/32
+        type: loopback
+  leaf4:
+    interfaces:
+      Loopback0:
+        ipv4: 10.0.0.24/32
+        type: loopback
+      Loopback1:
+        ipv4: 10.0.0.124/32
+        type: loopback
+EOF
