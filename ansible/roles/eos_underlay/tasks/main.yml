@@ -1,0 +1,79 @@
+cat > roles/eos_underlay/tasks/main.yml <<'EOF'
+---
+- name: Configure fabric interfaces
+  arista.eos.eos_config:
+    lines:
+      - "no switchport"
+      - "mtu 9214"
+      - "ip address {{ item.local_ip }}/31"
+      - "description Fabric link to {{ item.remote_node }} {{ item.remote_intf }}"
+      - "bfd interval 250 min-rx 250 multiplier 3"
+    parents: "interface {{ item.local_intf }}"
+    save_when: changed
+  loop: "{{ fabric_links }}"
+  tags: [underlay, interfaces]
+
+- name: Enable IP routing
+  arista.eos.eos_config:
+    lines:
+      - "ip routing"
+    save_when: changed
+  tags: [underlay]
+
+- name: Configure BGP underlay
+  arista.eos.eos_config:
+    lines:
+      - "router-id {{ loopback0_ip }}"
+      - "no bgp default ipv4-unicast"
+      - "distance bgp 20 200 200"
+      - "maximum-paths 64"
+      - "bgp bestpath as-path multipath-relax"
+      - "bgp log-neighbor-changes"
+    parents: "router bgp {{ bgp_asn }}"
+    save_when: changed
+  tags: [underlay, bgp]
+
+- name: Configure BGP neighbors
+  arista.eos.eos_config:
+    lines:
+      - "neighbor {{ item.peer_ip }} remote-as {{ item.peer_asn }}"
+      - "neighbor {{ item.peer_ip }} description {{ item.remote_node }}"
+      - "neighbor {{ item.peer_ip }} bfd"
+      - "neighbor {{ item.peer_ip }} timers 3 9"
+    parents: "router bgp {{ bgp_asn }}"
+    save_when: changed
+  loop: "{{ fabric_links }}"
+  tags: [underlay, bgp]
+
+- name: Activate IPv4 address-family per neighbor
+  arista.eos.eos_config:
+    lines:
+      - "neighbor {{ item.peer_ip }} activate"
+    parents:
+      - "router bgp {{ bgp_asn }}"
+      - "address-family ipv4"
+    save_when: changed
+  loop: "{{ fabric_links }}"
+  tags: [underlay, bgp]
+
+- name: Advertise loopback0
+  arista.eos.eos_config:
+    lines:
+      - "network {{ loopback0_ip }}/32"
+    parents:
+      - "router bgp {{ bgp_asn }}"
+      - "address-family ipv4"
+    save_when: changed
+  tags: [underlay, bgp]
+
+- name: Advertise loopback1 (leaves only)
+  arista.eos.eos_config:
+    lines:
+      - "network {{ loopback1_ip }}/32"
+    parents:
+      - "router bgp {{ bgp_asn }}"
+      - "address-family ipv4"
+    save_when: changed
+  when: role == 'leaf'
+  tags: [underlay, bgp]
+EOF
