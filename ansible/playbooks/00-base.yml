@@ -1,0 +1,8 @@
+cat > playbooks/00-base.yml <<'EOF'
+---
+- name: Apply base configuration
+  hosts: fabric
+  gather_facts: no
+  roles:
+    - role: ../roles/eos_base
+EOF
