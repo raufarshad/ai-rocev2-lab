@@ -1,0 +1,16 @@
+cd ~/ai-fabric-lab/ansible
+source venv/bin/activate
+
+cat > inventory/group_vars/all.yml <<'EOF'
+---
+# Overlay constants
+l2vni: 30100
+l3vni: 50000
+overlay_vlan: 100
+overlay_vlan_name: AI-COMPUTE
+overlay_subnet: 10.100.0.0/24
+overlay_anycast_ip: 10.100.0.1
+overlay_anycast_mac: "00:1c:73:00:00:01"
+overlay_vrf: ai-training
+overlay_mtu: 9214
+EOF
