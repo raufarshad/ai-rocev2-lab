@@ -7,3 +7,16 @@ scrape_configs:
     static_configs:
       - targets: ['10.0.0.232:9804'] ##change IP as needed
     metrics_path: /metrics
+    
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'gnmic'
+    # Replace with your automation-host IP where gnmic is running.
+    # gnmic uses network_mode=host in docker-compose, so it binds
+    # to the host's network rather than the docker bridge network.
+    static_configs:
+      - targets: ['10.0.0.232:9804']
+    metrics_path: /metrics
