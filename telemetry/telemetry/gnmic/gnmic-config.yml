@@ -1,0 +1,40 @@
+username: admin
+password: REPLACEIT!
+insecure: true
+timeout: 10s
+
+targets:
+  192.168.100.11:6030:
+    name: spine1
+  192.168.100.12:6030:
+    name: spine2
+  192.168.100.21:6030:
+    name: leaf1
+  192.168.100.22:6030:
+    name: leaf2
+  192.168.100.23:6030:
+    name: leaf3
+  192.168.100.24:6030:
+    name: leaf4
+
+subscriptions:
+  interface-counters:
+    paths:
+      - /interfaces/interface[name=*]/state/counters
+    mode: stream
+    stream-mode: sample
+    sample-interval: 10s
+  interface-state:
+    paths:
+      - /interfaces/interface[name=*]/state/oper-status
+    mode: stream
+    stream-mode: on-change
+
+outputs:
+  prom-output:
+    type: prometheus
+    listen: 0.0.0.0:9804
+    path: /metrics
+    expiration: 60s
+    metric-prefix: gnmic
+    append-subscription-name: true
