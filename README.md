@@ -62,7 +62,7 @@ This repo is me bridging that 30% gap publicly.
 * [x] Task 9 DLB and ECMP enhancements (documentation; silicon-dependent)
 * [x] Task 10 Ansible automation
 * [x] Task 11 pyATS validation
-* [] Task 12 Telemetry
+* [x] Task 12 Telemetry
 * [] Task 13 Documentation polish
 * [] Task 14 Public release
 
