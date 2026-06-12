@@ -1,4 +1,4 @@
-# AI/ML Data Center Fabric — Reference Implementation
+# AI/ML Data Center Fabric Reference Implementation
 
 > Public reference build of an AI/ML training fabric: design, automation, validation, and observability end to end on Arista cEOS in containerlab.
 > Built and documented as a network architect's deep-dive into modern AI infrastructure networking. Companion to the [LinkedIn build series](https://www.linkedin.com/in/raufarshad/).
@@ -23,14 +23,14 @@ This repository is the practical artifact of pivoting a 13-year enterprise data 
 
 ## What it demonstrates
 
-- **AI fabric architecture** — 2-spine / 4-leaf Clos, eBGP-everywhere underlay, EVPN VXLAN overlay with symmetric IRB, anycast gateway, BFD sub-second convergence
-- **RoCEv2 QoS design** — DSCP/CoS marking, PFC/ECN thresholds aligned to the Cisco AI/ML CVD and Meta SIGCOMM 2024 findings
-- **DLB design** — flowlet detection, dynamic load balancing for elephant flows, VXLAN inner-header hashing rationale
-- **Infrastructure as code** — idempotent Ansible roles for base config, underlay, and overlay; inventory models the topology as data
-- **Automated validation** — Cisco pyATS framework with 5 test cases  covering BGP, ECMP, EVPN, VTEP discovery, and end-to-end connectivity
-- **Streaming telemetry** — gNMI subscriptions on all 6 switches, gnmic collector, Prometheus storage, Grafana dashboards
-- **Multi-vendor portability** — Cisco NX-OS syntax equivalence documented for every major design element
-- **Operational maturity** — runbook, recovery procedures, scale-out patterns documented for handover
+- **AI fabric architecture**  2-spine / 4-leaf Clos, eBGP-everywhere underlay, EVPN VXLAN overlay with symmetric IRB, anycast gateway, BFD sub-second convergence
+- **RoCEv2 QoS design**  DSCP/CoS marking, PFC/ECN thresholds aligned to the Cisco AI/ML CVD and Meta SIGCOMM 2024 findings
+- **DLB design**  flowlet detection, dynamic load balancing for elephant flows, VXLAN inner-header hashing rationale
+- **Infrastructure as code**  idempotent Ansible roles for base config, underlay, and overlay; inventory models the topology as data
+- **Automated validation**  Cisco pyATS framework with 5 test cases  covering BGP, ECMP, EVPN, VTEP discovery, and end-to-end connectivity
+- **Streaming telemetry**  gNMI subscriptions on all 6 switches, gnmic collector, Prometheus storage, Grafana dashboards
+- **Multi-vendor portability**  Cisco NX-OS syntax equivalence documented for every major design element
+- **Operational maturity**  runbook, recovery procedures, scale-out patterns documented for handover
 
 ## Topology
 
