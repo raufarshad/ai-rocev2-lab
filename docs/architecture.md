@@ -34,8 +34,7 @@ demonstrates the design with single-rail attachment for clarity.
 
 ### Decision 1: eBGP-everywhere, not iBGP with route reflectors
 
-The fabric uses eBGP between every adjacent pair: spines share one ASN, each leaf has a unique ASN. This is the modern AI fabric pattern adopted by
-hyperscalers and documented in the Cisco AI/ML CVD and Arista AI design guides.
+The fabric uses eBGP between every adjacent pair: spines share one ASN, each leaf has a unique ASN. This is the modern AI fabric pattern adopted by hyperscalers and documented in the Cisco AI/ML CVD and Arista AI design guides.
 
 Reasons:
 
